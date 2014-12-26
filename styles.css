@@ -3,8 +3,72 @@
 /* Note: an asteroid image is included in this repo.
 Feel free to use it if you like. */
 
+.scoreboard {
+  margin: 1px 1px 1px 1px;
+  padding: 0px 0px 0px 200px;
+
+  background-color: red;
+}
+@-webkit-keyframes spaceboots {
+  0% { -webkit-transform: translate(2px, 1px) rotate(360deg); }
+  10% { -webkit-transform: translate(-1px, -2px) rotate(-360deg); }
+  20% { -webkit-transform: translate(-3px, 0px) rotate(360deg); }
+  30% { -webkit-transform: translate(0px, 2px) rotate(-360deg); }
+  40% { -webkit-transform: translate(1px, -1px) rotate(360deg); }
+  50% { -webkit-transform: translate(-1px, 2px) rotate(-360deg); }
+  60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+  70% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+  80% { -webkit-transform: translate(-1px, -1px) rotate(0deg); }
+  90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+  100% { -webkit-transform: translate(1px, -2px) rotate(0deg); }
+}
+/*.shake:hover,*/
+.enemy {
+  -webkit-animation-delay: 1s;
+  -webkit-animation-name: spaceboots;
+  -webkit-animation-duration: 1.2s;
+  -webkit-transform-origin:50% 50%;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+}
+/*.shake {*/
+  /*display:inline-block*/
+/*/*.enemy {*/*/
+    /*/*/*/*position: relative;*/*/*/*/
+    /*top: 1%;*/
+    /*left: 1%;*/
+    /*width: 120px;*/
+    /*height: 120px;*/
+    /*margin:-60px 0 0 -60px;*/
+    /*-webkit-animation:shake 1.2s linear infinite;*/
+    /*-moz-animation:spin 4s linear infinite;*/
+    /*animation:spin 4s linear infinite;*/
+/*}*/
+/*@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }*/
+/*@-webkit-keyframes spin { 100% { -webkit-transform: rotate(2deg); } }*/
+/*@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }*/
+/*.enemy {  */
+  /*-webkit-animation-duration: 3s;*/
+  /*-webkit-animation-name: shake;*/
+  /*-webkit-animation-iteration-count : infinite;*/
+/*}*/
+
+/*@-webkit-keyframes shake {*/
+  /*from {*/
+    /*size: 100%;*/
+    /*width: 300%; */
+  /*}*/
+
+  /*to {*/
+    /*margin-bottom: 0%;*/
+    /*width: 100%;*/
+  /*}*/
+/*}*/
 .hero {
   cursor : pointer;
+}
+.hero :hover{
+
 }
 /*.enemies {*/
   /*img*/

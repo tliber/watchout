@@ -5,31 +5,29 @@ var highScore = 0;
 var currentScore = 0;
 var enemyMovementSpeed = 1200;
 var enemySpaceTime = 0;//never change
-// start slin' some d3 here.
+var screenSizeLength = 600;
+var numberOfEnemies = 25;
+var enemyMovementInterval = 1200;
+
 
 var svg = d3.select("body").append("svg")
-  .attr({"width" : 500,
-  "height" : 500})
+  .attr({"width" : screenSizeLength,
+  "height" : screenSizeLength})
   .style({
   'border-size': 15 + 'px',
   "border-color" :'black',
   "border-style" : "solid",
-  'background-image' : 'url(orangeSpace.jpg)'});
-  // .append("battleField")
-
-  // .attr("cy", 25)
-  // .attr("r", 25)
+  'background-image' : 'url(orangeSpace.jpg)'
+  });
 
 var makeXY = function(amount){
   var xys = [];
   if (amount === undefined){
     amount = 1;
   }
-  // var x = (Math.random() * 490);
-  // var y = (Math.random() * 490);
   for (var i = 0; i < amount; i++){
-    var x = (Math.random() * 490);
-    var y = (Math.random() * 490);
+    var x = (Math.random() * screenSizeLength);
+    var y = (Math.random() * screenSizeLength);
     xys.push([x,y]);
   };
   return xys;
@@ -38,12 +36,9 @@ var makeXY = function(amount){
 
 var makeEnemies = function(amount){
   var coordinates = makeXY(amount);
-  // console.log(coordinates[0][0])
   var enemies = [];
   var hero = {};
   for(var i = 0;i < amount; i++){
-    // debugger;
-    // console.log(coordinates[i][0]);
     var enemy = {
       'id': i,
       'x': coordinates[i][0],
@@ -52,11 +47,10 @@ var makeEnemies = function(amount){
       'oldY' : coordinates[i][1],
     };
     enemies.push(enemy)
-  // console.log(enemies);
   }
   return enemies;
 }
-var enemies = makeEnemies(25);
+var enemies = makeEnemies(numberOfEnemies);
 var Enemies = d3.select("svg").selectAll('div')
   .data(enemies)
   .enter()
@@ -70,10 +64,8 @@ var Enemies = d3.select("svg").selectAll('div')
 
 
 var moveEnemies = function(amount){
-  // console.log(enemies)
   newXYS = makeXY(25);
   for (var i = 0;i < enemies.length;i++){
-    // console.log('in move' + enemies[i].x)
     enemies[i]['oldX'] = enemies[i].x; 
     enemies[i]['oldY'] = enemies[i].x; 
     enemies[i].x = newXYS[i][0];
@@ -91,7 +83,7 @@ var moveEnemies = function(amount){
 };
 
 
-var HeroProps = [{"x" : 200, "y" : 200,}]
+var HeroProps = [{"x" : screenSizeLength / 2, "y" : screenSizeLength / 2,}]
 var hero = svg
   // .append('circle')
   .data(HeroProps)
@@ -138,18 +130,19 @@ var collisionCheck = function(){
 
   var heroX =  d3.select(".hero").attr("x");
   var heroY =  d3.select(".hero").attr("y");
-  // console.log(heroX)
+  
   var thresh = 50;
-  console.log(enemies.length);
+  
   for (var i = 0;i < enemies.length;i++){
-    console.log(enemies[i])
+    
+    //later adjust slightly for heroXY starting at topyyyyyyyyyy
     var oldX = enemies[i]['oldX'];
     var oldY = enemies[i]['oldY'];
     var currentEnemyX = oldX - ((oldX - enemies[i].x) * wayThere);
     var currentEnemyY = oldY - ((oldY - enemies[i].y) * wayThere);
     var endPoint = (Math.abs(heroX - currentEnemyX) + Math.abs(heroY - currentEnemyY));
     // debugger;
-
+    // enemies[i].style('transform',function(){'rotate' + 360 + ''})
 
     if (thresh > endPoint){
       // console.log('collision');
@@ -164,7 +157,7 @@ var collisionCheck = function(){
   // console.log(enemies)
 } 
 
-setInterval(moveEnemies.bind(null,25), 1200);
+setInterval(moveEnemies.bind(null,25), enemyMovementInterval);
 setInterval(function(){
   var checker = collisionCheck();
   if (checker === true){
